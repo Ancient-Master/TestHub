@@ -1,378 +1,611 @@
-function createBaseNotifications()
-    if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("NotificationHolder") then
-        return game:GetService("Players").LocalPlayer.PlayerGui.NotificationHolder
-    end
-    
-    local ScreenGui = Instance.new("ScreenGui")
-    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
-    local ToggleNotif = Instance.new("Frame")
-    ToggleNotif.Name = "ToggleNotif"
-    ToggleNotif.ZIndex = 5
-    ToggleNotif.AnchorPoint = Vector2.new(1, 1)
-    ToggleNotif.Visible = false
-    ToggleNotif.Size = UDim2.new(0, 291, 0, 56)
-    ToggleNotif.Position = UDim2.new(1, 0, 1, 0)
-    ToggleNotif.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
-    ToggleNotif.Parent = ScreenGui
-    
-    local UiCorner = Instance.new("UICorner")
-    UiCorner.Name = "UiCorner"
-    UiCorner.Parent = ToggleNotif
-    
-    local Dropshadow = Instance.new("UIStroke")
-    Dropshadow.Name = "Dropshadow"
-    Dropshadow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    Dropshadow.Transparency = 0.8
-    Dropshadow.Thickness = 2
-    Dropshadow.Color = Color3.fromRGB(20, 20, 20)
-    Dropshadow.Parent = ToggleNotif
-    
-    local SepVertical = Instance.new("Frame")
-    SepVertical.Name = "SepVertical"
-    SepVertical.Size = UDim2.new(0, 2, 0, 56)
-    SepVertical.BackgroundTransparency = 0.5
-    SepVertical.Position = UDim2.new(0.7423077, 0, 0, 0)
-    SepVertical.BorderSizePixel = 0
-    SepVertical.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
-    SepVertical.Parent = ToggleNotif
-    
-    local SepHorizontal = Instance.new("Frame")
-    SepHorizontal.Name = "SepHorizontal"
-    SepHorizontal.Size = UDim2.new(0, 72, 0, 2)
-    SepHorizontal.BackgroundTransparency = 0.5
-    SepHorizontal.Position = UDim2.new(0.75, 0, 0.4464286, 2)
-    SepHorizontal.BorderSizePixel = 0
-    SepHorizontal.BackgroundColor3 = Color3.fromRGB(68, 68, 68)
-    SepHorizontal.Parent = ToggleNotif
-    
-    local Title = Instance.new("TextLabel")
-    Title.Name = "Title"
-    Title.Size = UDim2.new(0, 216, 0, 19)
-    Title.BackgroundTransparency = 1
-    Title.BorderSizePixel = 0
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title.FontSize = Enum.FontSize.Size14
-    Title.TextSize = 14
-    Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title.Font = Enum.Font.SourceSans
-    Title.Parent = ToggleNotif
-    
-    local Paragraph = Instance.new("TextLabel")
-    Paragraph.Name = "Paragraph"
-    Paragraph.Size = UDim2.new(0, 218, 0, 37)
-    Paragraph.BackgroundTransparency = 1
-    Paragraph.Position = UDim2.new(0, 0, 0.3392857, 0)
-    Paragraph.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Paragraph.FontSize = Enum.FontSize.Size14
-    Paragraph.TextSize = 14
-    Paragraph.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Paragraph.Text = ""
-    Paragraph.TextYAlignment = Enum.TextYAlignment.Top
-    Paragraph.TextWrapped = true
-    Paragraph.Font = Enum.Font.SourceSans
-    Paragraph.TextWrap = true
-    Paragraph.TextXAlignment = Enum.TextXAlignment.Left
-    Paragraph.Parent = ToggleNotif
-    
-    local UIPadding = Instance.new("UIPadding")
-    UIPadding.PaddingLeft = UDim.new(0, 10)
-    UIPadding.PaddingRight = UDim.new(0, 5)
-    UIPadding.Parent = Paragraph
-    
-    local True = Instance.new("TextButton")
-    True.Name = "True"
-    True.Size = UDim2.new(0, 72, 0, 27)
-    True.BackgroundTransparency = 1
-    True.Position = UDim2.new(0.75, 0, 0, 0)
-    True.BorderSizePixel = 0
-    True.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    True.FontSize = Enum.FontSize.Size14
-    True.TextSize = 14
-    True.TextColor3 = Color3.fromRGB(255, 255, 255)
-    True.Text = "Yes"
-    True.Font = Enum.Font.SourceSans
-    True.Parent = ToggleNotif
-    
-    local False = Instance.new("TextButton")
-    False.Name = "False"
-    False.Size = UDim2.new(0, 72, 0, 27)
-    False.BackgroundTransparency = 1
-    False.Position = UDim2.new(0.75, 0, 0.5178571, 0)
-    False.BorderSizePixel = 0
-    False.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    False.FontSize = Enum.FontSize.Size14
-    False.TextSize = 14
-    False.TextColor3 = Color3.fromRGB(255, 255, 255)
-    False.Text = "No"
-    False.Font = Enum.Font.SourceSans
-    False.Parent = ToggleNotif
-    
-    local LocalScript = Instance.new("LocalScript")
-    LocalScript.Parent = ScreenGui
-    
-    local DefaultNotif = Instance.new("Frame")
-    DefaultNotif.Name = "DefaultNotif"
-    DefaultNotif.ZIndex = 5
-    DefaultNotif.AnchorPoint = Vector2.new(1, 1)
-    DefaultNotif.Visible = false
-    DefaultNotif.Size = UDim2.new(0, 291, 0, 56)
-    DefaultNotif.Position = UDim2.new(1, 0, 0.9999999, 0)
-    DefaultNotif.BackgroundColor3 = Color3.fromRGB(48, 48, 48)
-    DefaultNotif.Parent = ScreenGui
-    
-    local UiCorner1 = Instance.new("UICorner")
-    UiCorner1.Name = "UiCorner"
-    UiCorner1.Parent = DefaultNotif
-    
-    local Dropshadow1 = Instance.new("UIStroke")
-    Dropshadow1.Name = "Dropshadow"
-    Dropshadow1.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-    Dropshadow1.Transparency = 0.8
-    Dropshadow1.Thickness = 2
-    Dropshadow1.Color = Color3.fromRGB(20, 20, 20)
-    Dropshadow1.Parent = DefaultNotif
-    
-    local Title1 = Instance.new("TextLabel")
-    Title1.Name = "Title"
-    Title1.Size = UDim2.new(0, 291, 0, 19)
-    Title1.BackgroundTransparency = 1
-    Title1.BorderSizePixel = 0
-    Title1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Title1.FontSize = Enum.FontSize.Size14
-    Title1.TextSize = 14
-    Title1.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Title1.Font = Enum.Font.SourceSans
-    Title1.Parent = DefaultNotif
-    
-    local Paragraph1 = Instance.new("TextLabel")
-    Paragraph1.Name = "Paragraph"
-    Paragraph1.Size = UDim2.new(0, 291, 0, 37)
-    Paragraph1.BackgroundTransparency = 1
-    Paragraph1.Position = UDim2.new(0, 0, 0.3392857, 0)
-    Paragraph1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Paragraph1.FontSize = Enum.FontSize.Size14
-    Paragraph1.TextSize = 14
-    Paragraph1.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Paragraph1.Text = ""
-    Paragraph1.TextYAlignment = Enum.TextYAlignment.Top
-    Paragraph1.TextWrapped = true
-    Paragraph1.Font = Enum.Font.SourceSans
-    Paragraph1.TextWrap = true
-    Paragraph1.TextXAlignment = Enum.TextXAlignment.Left
-    Paragraph1.Parent = DefaultNotif
-    
-    local UIPadding1 = Instance.new("UIPadding")
-    UIPadding1.PaddingLeft = UDim.new(0, 10)
-    UIPadding1.PaddingRight = UDim.new(0, 5)
-    UIPadding1.Parent = Paragraph1
-    
-    if syn then
-        syn.protect_gui(ScreenGui)
-    end
-    
-    ScreenGui.Parent = game:GetService("Players").LocalPlayer.PlayerGui
-    return ScreenGui
-end
+local NotificationTable = {};
+local Done = true;
+local TweenService = game:GetService("TweenService");
+local TemplateName = {}
 
-local notificationLibrary = {}
-
-notificationHolder = createBaseNotifications()
-
-notifAmount = 0
-removedPos = nil
-
-function notificationLibrary:CreatePromptNotif(args)
-	args = args or {}
-	
-	
-	args.TweenSpeed = args.TweenSpeed or 1
-	args.TweenInSpeed = args.TweenInSpeed or args.TweenSpeed
-	args.TweenOutSpeed = args.TweenOutSpeed or args.TweenSpeed
-	args.TweenVerticalSpeed = args.TweenVerticalSpeed or args.TweenSpeed
-	
-	args.Title = args.Title or "Title"
-	args.Text = args.Text or "Text"
-	
-	args.TrueText = args.TrueText or "Yes"
-	args.FalseText = args.FalseText or "No"
-	
-	args.Duration = args.Duration or 5
-	args.Callback = args.Callback or function() warn("No callback for notif") end
-	
-	---- arg defining ^
-	
-
-	
-	notifAmount = notifAmount + 1
-	
-	local track = notifAmount
-	local notifNum = notifAmount
-	
-	local doesExist = true
-	local notif = notificationHolder.ToggleNotif:Clone()
-	local removed = false
-	
-	notif.Parent = notificationHolder
-	notif.Visible = true
-	notif.Position = UDim2.new(1, 300, 1, -5)
-	
-	notif.Transparency = 0.05
-	
-	notif.True.Text = args.TrueText
-	notif.False.Text = args.FalseText
-	
-	task.spawn(function()
-		task.wait(args.Duration + args.TweenInSpeed)
-		doesExist = false
-	end)
-	
-	notif.True.MouseButton1Click:Connect(function()
-		doesExist = false
-		removed = true
-		notifAmount = notifAmount - 1
-		removedPos = notif.Position.Y.Offset	
-
-		pcall(args.Callback, true)
-	end)
-	
-	
-	notif.False.MouseButton1Click:Connect(function()
-		doesExist = false
-		removed = true
-		notifAmount = notifAmount - 1
-		removedPos = notif.Position.Y.Offset	
-		
-		pcall(args.Callback, false)
-	end)
-	
-	notif.Paragraph.Text = args.Text
-	notif.Title.Text = args.Title
-
-	notif:TweenPosition(UDim2.new(1, -5, 1, -5), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenInSpeed)
-	
-	task.spawn(function()
-		local originalPos = notif.Position
-		while doesExist and task.wait() do	
-			local pos = notif.Position
-			
-			if notifAmount > track then
-				notif:TweenPosition(UDim2.new(1, -5, 1, originalPos.Y.Offset - (65 * (notifAmount - notifNum))), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenVerticalSpeed, true)
-				track = track + 1
-			end
-			
-			if notifAmount < track then
-				if removedPos > pos.Y.Offset then
-					notif:TweenPosition(UDim2.new(1, -5, 1, originalPos.Y.Offset - (65 * (notifAmount - notifNum))), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenVerticalSpeed, true)
-				else
-					notifNum = notifNum - 1
-				end
-				track = track - 1
-			end
-		end
-		
-		local pos = notif.Position
-		
-		if removed == false then
-			notifAmount = notifAmount - 1
-			removedPos = notif.Position.Y.Offset
-		end
-		
-		notif:TweenPosition(UDim2.new(1, 300, 1, pos.Y.Offset), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenOutSpeed, true)
-		task.wait(args.TweenOutSpeed)
-		notif:Destroy()
-	end)
-end
-
-function notificationLibrary:CreateDefaultNotif(args)
-	args = args or {}
-	
-	
-	args.TweenSpeed = args.TweenSpeed or 1
-	args.TweenInSpeed = args.TweenInSpeed or args.TweenSpeed
-	args.TweenOutSpeed = args.TweenOutSpeed or args.TweenSpeed
-	args.TweenVerticalSpeed = args.TweenVerticalSpeed or args.TweenSpeed
-	
-	args.Title = args.Title or "Title"
-	args.Text = args.Text or "Text"
-	
-	args.Duration = args.Duration or 5
-	
-	---- arg defining ^
-	
-    
-	
-	notifAmount = notifAmount + 1
-	
-	local track = notifAmount
-	local notifNum = notifAmount
-	
-	local removed = false
-	local doesExist = true
-	local notif = notificationHolder.DefaultNotif:Clone()
-
-	notif.Parent = notificationHolder
-	notif.Visible = true
-	notif.Position = UDim2.new(1, 300, 1, -5)
-	
-    notif.Transparency = 0.05
-	
-	notif.InputBegan:Connect(function(InputObject)
-        if InputObject.UserInputType == Enum.UserInputType.MouseButton1 then
-    		task.spawn(function()
-    			local tweenInfo = TweenInfo.new(0.5,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0, false,0)
-    			game:GetService("TweenService"):Create(notif, tweenInfo, {Transparency = 0.8}):Play()
-    		end)
-            doesExist = false
-		    removed = true
-		    notifAmount = notifAmount - 1
-		    removedPos = notif.Position.Y.Offset
+local function Debug(...)
+    if getgenv().DebugEnabled and game:GetService("Players").LocalPlayer then
+        rconsolename("Data".."_"..tostring(game.PlaceId))
+        local Args = {...}
+        local Str = "";
+        for _,Arg in next, Args do
+            Str = Str .. " " ..tostring(Arg)
         end
-    end)
-	
-	task.spawn(function()
-		task.wait(args.Duration + args.TweenInSpeed)
-		doesExist = false
-	end)
-	
-	notif.Paragraph.Text = args.Text
-	notif.Title.Text = args.Title
-
-	notif:TweenPosition(UDim2.new(1, -5, 1, -5), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenInSpeed)
-	
-	task.spawn(function()
-		local originalPos = notif.Position
-		while doesExist and task.wait() do	
-			local pos = notif.Position
-			
-			if notifAmount > track then
-				notif:TweenPosition(UDim2.new(1, -5, 1, originalPos.Y.Offset - (65 * (notifAmount - notifNum))), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenVerticalSpeed, true)
-				track = track + 1
-			end
-			
-			if notifAmount < track then
-				if removedPos > pos.Y.Offset then
-					notif:TweenPosition(UDim2.new(1, -5, 1, originalPos.Y.Offset - (65 * (notifAmount - notifNum))), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenVerticalSpeed, true)
-				else
-					notifNum = notifNum - 1
-				end
-				track = track - 1
-			end
-		end
-		
-		local pos = notif.Position
-		
-		if removed == false then 
-    	    notifAmount = notifAmount - 1
-    		removedPos = notif.Position.Y.Offset
-    	end
-		
-		
-		notif:TweenPosition(UDim2.new(1, 300, 1, pos.Y.Offset), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, args.TweenOutSpeed, true)
-		task.wait(args.TweenOutSpeed)
-		notif:Destroy()
-	end)
+        rconsolewarn(Str)
+        wait(1.5)
+    end
 end
 
 
-return notificationLibrary
+
+local function CreateNormalNotificationArguments()
+	local ArgFour = {
+		Duration = 4,
+
+		TitleSettings = {
+			BackgroundColor3 = Color3.fromRGB(200, 200 ,200),
+			TextColor3 = Color3.fromRGB(240, 240, 240),
+			TextScaled = true,
+			TextWrapped = true,
+			TextSize = 18.000,
+			Font = Enum.Font.SourceSansBold,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center
+		},
+
+		DescriptionSettings = {
+			BackgroundColor3 = Color3.fromRGB(200, 200 ,200),
+			TextColor3 = Color3.fromRGB(240, 240, 240),
+			TextScaled = true,
+			TextWrapped = true,
+			TextSize = 14.000,
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+		},
+
+		IconSettings = {
+			BackgroundTransparency = 1,
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),				
+		},
+
+		GradientSettings = {
+			GradientEnabled = true,
+			SolidColorEnabled = false,
+			SolidColor = Color3.fromRGB(0,255,255),
+			Retract = false,
+			Extend = false
+		},
+
+		Main = {
+			BorderColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			BackgroundTransparency = 0.050,
+			Rounding = true,
+			BorderSizePixel = 1
+		}
+	}
+
+	return ArgFour;
+end
+
+local function RandomName(Size)
+	local String = "";
+	local Alphabet = {"{","}","[","]","(",")","/","\","'","\"","'","~",",",";",":",".","<",">","@","#","$","%","1","2","3","4","5","6","7","8","9","0","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"}
+
+	for i = 1, Size do
+		String = String .. Alphabet[math.random(#Alphabet)]
+	end
+
+	return String;
+end
+
+local NotificationFolder = Instance.new("Folder");
+
+NotificationTable.CreateNotification = function(TitleData, Text, Image, Settings)
+
+    Debug("CREATED_",TitleData, Text, Image, Settings)
+	local Duration = Settings.Duration;
+	local TitleSettings = Settings.TitleSettings;
+	local DescriptionSettings = Settings.DescriptionSettings;
+	local IconSettings = Settings.IconSettings;
+	local GradientSettings = Settings.GradientSettings;
+	local MainSettings = Settings.Main;
+	
+    Debug("Running Parent")
+	if getgenv then
+        Debug("GetGenv Detected")
+		if (game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("NotificationFrame"):FindFirstChild("NotificationFolder")) then
+            Debug("NotifFolder Detected")
+			NotificationFolder = game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("NotificationFrame"):FindFirstChild("NotificationFolder");
+		else
+            Debug("Creating NotifFolder")
+			NotificationFolder.Name = "NotificationFolder"
+			NotificationFolder.Parent = game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("NotificationFrame");
+		end
+	else
+        Debug("Roblox Client Detected")
+		if (game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("NotificationFolder")) then
+			NotificationFolder = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("NotificationFolder");
+		else
+			NotificationFolder.Name = "NotificationFolder"
+			NotificationFolder.Parent = game:GetService("Players").LocalPlayer.PlayerGui;
+		end
+	end
+
+    Debug("Creating Notif Instances")
+	local Notification = Instance.new("ScreenGui")
+	local _Template = Instance.new("Frame")
+	local Icon = Instance.new("ImageLabel")
+	local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+	local Title = Instance.new("TextLabel")
+	local TextLabel = Instance.new("TextLabel")
+	local UICorner = Instance.new("UICorner")
+	local Frame = Instance.new("Frame")
+	local UIGradient = Instance.new("UIGradient")
+
+
+    Debug("Setting main Parent/Name")
+	Notification.Name = RandomName(15)
+    Debug("Main 1/4")
+    
+    if hookmetamethod then
+        local a;a=hookmetamethod(game,"__index",function(...)local self,b=...if self==Notification and not checkcaller()then if tostring(b)=="Name"then return"CoreGui"end end;return a(...)end)
+    end
+    
+	Notification.Parent = NotificationFolder
+    Debug("Main 2/4")
+	Notification.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    Debug("Main 3/4")
+	Notification.Enabled = true;
+    Debug("Main 4/4")
+
+    if getgenv().DevBuild then
+        TemplateName[_Template] = RandomName(15) .. "_";
+        _Template.Name = TemplateName[_Template]
+    else
+        _Template.Name = "_Template";
+    end
+    Debug("_Temp 1/9")
+	_Template.BackgroundColor3 = MainSettings.BackgroundColor3
+    Debug("_Temp 2/9")
+	_Template.BackgroundTransparency = MainSettings.BackgroundTransparency
+    Debug("_Temp 3/9")
+	_Template.BorderColor3 = MainSettings.BorderColor3
+    Debug("_Temp 4/9")
+	_Template.Position = UDim2.new(0.713929176, 0, 0.587826073, 0)
+    Debug("_Temp 5/9")
+	_Template.Size = UDim2.new(0, 270, 0, 64)
+    Debug("_Temp 6/9")
+	_Template.ZIndex = 9
+    Debug("_Temp 7/9")
+	_Template.Visible = false;
+    Debug("_Temp 8/9")
+	_Template.Parent = Notification
+    Debug("_Temp 9/9")
+    Debug("_Temp finished")
+    
+	Icon.Name = "Icon"
+	Icon.Parent = _Template
+	Icon.BackgroundColor3 = IconSettings.BackgroundColor3
+	Icon.BackgroundTransparency = IconSettings.BackgroundTransparency
+	Icon.Position = UDim2.new(0.0277603213, 0, 0.182097465, 0)
+	Icon.Size = UDim2.new(0, 40, 0, 40)
+	Icon.Image = Image
+    Debug("Icon finished")
+
+	UIAspectRatioConstraint.Parent = Icon
+    Debug("UiAspect finished")
+
+	Title.Name = "Title"
+	Title.Parent = _Template
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0, 63, 0, 2)
+	Title.Size = UDim2.new(0, 129, 0, 21)
+	Title.Text = TitleData
+	Title.TextColor3 = TitleSettings.TextColor3
+	Title.TextScaled = TitleSettings.TextScaled
+	Title.TextSize = TitleSettings.TextSize
+	Title.TextWrapped = TitleSettings.TextWrapped
+	Title.TextXAlignment = TitleSettings.TextXAlignment
+	Title.TextYAlignment = TitleSettings.TextYAlignment
+	Title.Font = TitleSettings.Font
+	Title.BackgroundColor3 = TitleSettings.BackgroundColor3
+	Title.RichText = true
+    Debug("Title finished")
+
+	TextLabel.Parent = _Template
+	TextLabel.BackgroundColor3 = DescriptionSettings.BackgroundColor3
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(0, 63, 0, 23)
+	TextLabel.Size = UDim2.new(0, 178, 0, 35)
+	TextLabel.Text = Text
+	TextLabel.TextColor3 = DescriptionSettings.TextColor3
+	TextLabel.TextScaled = DescriptionSettings.TextScaled
+	TextLabel.TextSize = DescriptionSettings.TextSize
+	TextLabel.TextWrapped = DescriptionSettings.TextWrapped
+	TextLabel.TextXAlignment = DescriptionSettings.TextXAlignment
+	TextLabel.TextYAlignment = DescriptionSettings.TextYAlignment
+	TextLabel.Font = DescriptionSettings.Font
+	TextLabel.BackgroundColor3 = DescriptionSettings.BackgroundColor3
+	TextLabel.RichText = true
+    Debug("TextLanel finished")
+
+	if MainSettings.Rounding then
+		UICorner.Parent = _Template
+	end
+    Debug("Rounding finished")
+
+	Frame.Parent = _Template
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0,0,1,-3)
+	Frame.Size = UDim2.new(0, 263, 0, 3)
+	Frame.Visible = false;
+    Debug("Frame finished")
+
+	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 8, 231)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(64, 0, 255))}
+	UIGradient.Parent = Frame
+    Debug("Gradient finished")
+
+	if GradientSettings.GradientEnabled then
+		Frame.Visible = true
+	elseif GradientSettings.SolidColor then
+		UIGradient:Destroy();
+		Frame.BackgroundColor3 = GradientSettings.SolidColor
+		Frame.Visible = true
+	end
+
+    Debug("Returning Objects")
+	return {_Template, Duration, GradientSettings.Retract, GradientSettings.Extend};
+end
+
+NotificationTable.InsertNotification = function(Notification, Duration, Retracting, Extending)
+    Debug("Insert Called, waiting to run")
+	repeat game:GetService("RunService").Heartbeat:Wait() until Done;
+
+	local ShowPosition = UDim2.new(1, -280, 1, -70 * #NotificationFolder:GetChildren() - 1);
+	local HidePosition = UDim2.new(1, 0, 1, 0);
+
+	Notification.Position = HidePosition;
+	Notification.Visible = true;
+
+	local TweenInfData = TweenInfo.new(0.4);
+	local TweenInfData2 = TweenInfo.new(Duration);
+
+	TweenService:Create(Notification, TweenInfData, {
+		Position = ShowPosition
+	}):Play();
+
+	if (Retracting) then
+
+		TweenService:Create(Notification.Frame, TweenInfData2, {
+			Size = UDim2.new(0, 0, 0, 3)
+		}):Play();
+	elseif (Extending) then
+		Notification.Frame.Size = UDim2.new(0, 0, 0, 3);
+
+		TweenService:Create(Notification.Frame, TweenInfData2, {
+			Size = UDim2.new(0, 263, 0, 3)
+		}):Play();
+	end
+
+	wait(TweenInfData2.Time);
+	wait(TweenInfData.Time);
+
+	Done = false
+	local Tween = TweenService:Create(Notification, TweenInfData, {
+		Position = HidePosition
+	})
+
+	Tween.Completed:Connect(function(State)
+		if State == Enum.PlaybackState.Completed then
+			Notification.Parent:Destroy();
+			Done = true
+		end
+	end)
+
+	Tween:Play();
+end
+
+NotificationTable.Notify = function(...)
+	CheckAd();
+	coroutine.wrap(function(...)
+		local Args = {...};
+        
+        Debug("Notif started")
+		assert(#Args < 5, "Error: Too many arguments for Notify | Expected 3 : 4");
+		assert(#Args > 2, "Error: Too little arguments for Notify | Expected 3 : 4")
+
+        Debug("Notif started", "Fixing Args")
+		for Index,Argument in next, Args do
+			if Index ~= 4 then
+				Args[Index] = tostring(Argument);
+			end
+		end
+
+
+        Debug("Arg 3 reset")
+		if (#Args == 3) then
+			Args[4] = CreateNormalNotificationArguments();
+		end
+
+        Debug("Arg 5 reset")
+		Args[5] = CreateNormalNotificationArguments();
+
+        Debug("Settings set")
+		if (type(Args[4]) ~= "table") then
+			warn("Settings table malformed, please make sure you have the exact table copied! { ARG4_INVALID_TABLE }");
+			Args[4] = CreateNormalNotificationArguments();
+		end
+
+		for Property, Value in next, Args[4] do
+			if type(Value) == "table" then
+				for SubProperty, SubValue in next, Value do
+					Args[5][Property][SubProperty] = SubValue;
+				end
+			else
+				Args[5][Property] = Value
+			end
+		end
+
+        Debug("Settings set done")
+
+		local NotifFrame = NotificationTable.CreateNotification(Args[1], Args[2], Args[3], Args[5]);
+
+        Debug("Finished creating", "Inserting")
+		NotificationTable.InsertNotification(NotifFrame[1], NotifFrame[2], NotifFrame[3], NotifFrame[4]);
+        Debug("Finished Inserting")
+	end)(...)
+end
+
+-- { Wall Notifications } --
+
+local WallNotificationFolder = Instance.new("Folder");
+
+local function CreateWallArgs()
+	local ArgThree = {
+		Duration = 5,
+
+		MainSettings = {
+			Orientation = "Middle",
+			VisibleSize = UDim2.new(0.96981132, 0, 0.947604775, 0);
+			HiddenSize  = UDim2.new(0, 0, 0.947604775, 0),
+			TweenTime 	= 0.8
+		},
+
+		TitleSettings = {
+			Enabled = true,
+			BackgroundColor3 = Color3.fromRGB(200, 200 ,200),
+			TextColor3 = Color3.fromRGB(240, 240, 240),
+			TextScaled = true,
+			TextWrapped = true,
+			TextSize = 18.000,
+			Font = Enum.Font.SourceSansBold,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center
+		},
+
+		DescriptionSettings = {
+			BackgroundColor3 = Color3.fromRGB(200, 200 ,200),
+			TextColor3 = Color3.fromRGB(240, 240, 240),
+			TextScaled = true,
+			TextWrapped = true,
+			TextSize = 14.000,
+			Font = Enum.Font.SourceSans,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center
+		}
+	};
+	return ArgThree;
+end
+
+NotificationTable.CreateWallNotification = function(TitleText, DescriptionText, Settings)
+
+	local Duration = Settings.Duration;
+	local TitleSettings = Settings.TitleSettings;
+	local DescriptionSettings = Settings.DescriptionSettings;
+	local MainSettings = Settings.MainSettings;
+
+	if getgenv then
+		if (game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("WallNotificationFolder")) then
+			WallNotificationFolder = game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("WallNotificationFolder");
+		else
+			WallNotificationFolder.Name = "WallNotificationFolder"
+			WallNotificationFolder.Parent = game:GetService("CoreGui"):FindFirstChild("RobloxGui");
+		end
+	else
+		if (game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WallNotificationFolder")) then
+			WallNotificationFolder = game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("WallNotificationFolder");
+		else
+			WallNotificationFolder.Name = "WallNotificationFolder"
+			WallNotificationFolder.Parent = game:GetService("Players").LocalPlayer.PlayerGui;
+		end
+	end
+
+	local WallNotification = Instance.new("ScreenGui")
+	local Main = Instance.new("Frame")
+	local Title = Instance.new("TextLabel")
+	local Description = Instance.new("TextLabel")
+
+	WallNotification.Name = "Notification"
+	WallNotification.Parent = WallNotificationFolder
+	WallNotification.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	WallNotification.Enabled = true;
+
+	Main.Name = "Main"
+	Main.Parent = WallNotification
+	Main.AnchorPoint = Vector2.new(0.5, 0.5)
+	Main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Main.BackgroundTransparency = 0.200
+	Main.BorderColor3 = Color3.fromRGB(255, 255, 255)
+	Main.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Main.Size = MainSettings.HiddenSize;
+
+	Title.Name = "Title"
+	Title.Parent = Main
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(0.267834008, 0, 0.0142180091, 0)
+	Title.Size = UDim2.new(0.463035017, 0, 0.0805396363, 0)
+	Title.Text = TitleText
+	Title.TextColor3 = TitleSettings.TextColor3
+	Title.TextScaled = TitleSettings.TextScaled
+	Title.TextSize = TitleSettings.TextSize
+	Title.TextWrapped = TitleSettings.TextWrapped
+	Title.TextXAlignment = TitleSettings.TextXAlignment
+	Title.TextYAlignment = TitleSettings.TextYAlignment
+	Title.Font = TitleSettings.Font
+	Title.BackgroundColor3 = TitleSettings.BackgroundColor3
+	Title.Visible = TitleSettings.Enabled
+	Title.RichText = true
+	
+	Description.Name = "Description"
+	Description.Parent = Main
+	Description.BackgroundTransparency = 1.000
+	Description.Position = UDim2.new(0.0149156936, 0, 0.127962083, 0)
+	Description.Size = UDim2.new(0.969520092, 0, 0.830963671, 0)
+	Description.Text = DescriptionText
+	Description.TextColor3 = DescriptionSettings.TextColor3
+	Description.TextScaled = DescriptionSettings.TextScaled
+	Description.TextSize = DescriptionSettings.TextSize
+	Description.TextWrapped = DescriptionSettings.TextWrapped
+	Description.TextXAlignment = DescriptionSettings.TextXAlignment
+	Description.TextYAlignment = DescriptionSettings.TextYAlignment
+	Description.Font = DescriptionSettings.Font
+	Description.BackgroundColor3 = DescriptionSettings.BackgroundColor3
+	Description.RichText = true
+	
+	Main.Visible = false;
+	
+	return {Main, Duration, MainSettings};
+end
+
+NotificationTable.InsertWallNotification = function(Notification, Duration, SettingsTable)
+	local ShowSize = SettingsTable.VisibleSize;
+	local HiddenSize = SettingsTable.HiddenSize;
+	local PositionType = SettingsTable.Orientation;
+	local TweenInfData = TweenInfo.new(SettingsTable.TweenTime);
+		
+	if PositionType == "Top" then
+		Notification.Visible = true;
+		Notification.Size = ShowSize;
+		Notification.Position = UDim2.new(Notification.Position.X.Scale, Notification.Position.X.Offset, 0, -(Notification.Parent.AbsoluteSize.Y / 2) - 25)
+
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(.5, 0, .5, 0)
+		}):Play()
+
+		wait(TweenInfData.Time + Duration);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(Notification.Position.X.Scale, Notification.Position.X.Offset, 0, -(Notification.Parent.AbsoluteSize.Y / 2) - 25)
+		}):Play();
+
+		wait(TweenInfData.Time);
+	elseif PositionType == "Left" then
+		Notification.Visible = true;
+		Notification.Size = ShowSize;
+		Notification.Position = UDim2.new(0, -(Notification.Parent.AbsoluteSize.X / 2), Notification.Position.Y.Scale, Notification.Position.Y.Offset)
+		
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(.5, 0, .5, 0)
+		}):Play()
+
+		wait(TweenInfData.Time + Duration);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(0, -(Notification.Parent.AbsoluteSize.X / 2), Notification.Position.Y.Scale, Notification.Position.Y.Offset)
+		}):Play();
+
+		wait(TweenInfData.Time);
+	elseif PositionType == "Right" then 
+		Notification.Visible = true;
+		Notification.Size = ShowSize;
+		Notification.Position = UDim2.new(0, Notification.Parent.AbsoluteSize.X + Notification.AbsoluteSize.X / 2, Notification.Position.Y.Scale, Notification.Position.Y.Offset)
+		
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(.5, 0, .5, 0)
+		}):Play()
+
+		wait(TweenInfData.Time + Duration);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(0, Notification.Parent.AbsoluteSize.X + Notification.AbsoluteSize.X / 2, Notification.Position.Y.Scale, Notification.Position.Y.Offset)
+		}):Play();
+
+		wait(TweenInfData.Time);
+		
+	elseif PositionType == "Bottom" then
+		Notification.Visible = true;
+		Notification.Size = ShowSize;
+		Notification.Position = UDim2.new(Notification.Position.X.Scale, Notification.Position.X.Offset, 0, Notification.Parent.AbsoluteSize.Y + (Notification.AbsoluteSize.Y / 2))
+		
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(.5, 0, .5, 0)
+		}):Play()
+
+		wait(TweenInfData.Time + Duration);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Position = UDim2.new(Notification.Position.X.Scale, Notification.Position.X.Offset, 0, Notification.Parent.AbsoluteSize.Y + (Notification.AbsoluteSize.Y / 2))
+		}):Play();
+
+		wait(TweenInfData.Time);
+		
+	elseif PositionType == "Middle" then
+		Notification.Visible = true;
+
+		TweenInfData = TweenInfo.new(.8);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Size = ShowSize
+		}):Play();
+
+		wait(TweenInfData.Time + Duration);
+
+		TweenService:Create(Notification, TweenInfData, {
+			Size = HiddenSize
+		}):Play();
+
+		wait(TweenInfData.Time);
+	end
+
+	Notification.Parent:Destroy();
+end
+
+NotificationTable.WallNotification = function(...)
+	CheckAd();
+	coroutine.wrap(function(...)
+		local Args = {...};
+
+		assert(#Args < 4, "Error: Too many arguments for WallNotification | Expected 2 : 3");
+		assert(#Args > 1, "Error: Too little arguments for WallNotification | Expected 2 : 3")
+
+		for Index,Argument in next, Args do
+			if Index ~= 3 then
+				Args[Index] = tostring(Argument);
+			end
+		end
+
+		if (#Args == 2) then
+			Args[3] = CreateWallArgs();
+		end
+
+		Args[4] = CreateWallArgs();
+
+		if (type(Args[3]) ~= "table") then
+			warn("Settings table malformed, please make sure you have the exact table copied! { ARG4_INVALID_TABLE }");
+			Args[3] = CreateWallArgs();
+		end
+
+		for Property, Value in next, Args[3] do
+			if type(Value) == "table" then
+				for SubProperty, SubValue in next, Value do
+					Args[4][Property][SubProperty] = SubValue;
+				end
+			else
+				Args[4][Property] = Value
+			end
+		end
+
+
+		local NotifFrame = NotificationTable.CreateWallNotification(Args[1], Args[2], Args[4]);
+
+		NotificationTable.InsertWallNotification(NotifFrame[1], NotifFrame[2], NotifFrame[3]);
+	end)(...)
+end
+
+NotificationTable.ClearOverride = function()
+	CheckAd();
+	for _, Folder in next, game:GetService("CoreGui"):FindFirstChild("RobloxGui"):GetChildren() do
+		if Folder.Name:match("NotificationFolder") or Folder.Name:match("WallNotificationFolder") then
+			Folder:Destroy();
+		end
+	end
+	for _, Folder in next, game:GetService("Players").LocalPlayer.PlayerGui:GetChildren() do
+		if Folder.Name:match("NotificationFolder") or Folder.Name:match("WallNotificationFolder") then
+			Folder:Destroy();
+		end
+	end
+end
+
+return NotificationTable;
