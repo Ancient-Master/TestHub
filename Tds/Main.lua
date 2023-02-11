@@ -1,11 +1,9 @@
 
-
-
 repeat task.wait() until game:IsLoaded() and Nexus
 
     if not Nexus.IsConnected then Nexus.Connected:Wait() end
     Nexus.Commands.performance()
-
+pcall(function()
 local TowersUHave = {}
 for i,v in next, game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Session", "Search", "Inventory.Troops") do
         table.insert(TowersUHave, i)
@@ -194,3 +192,4 @@ end
 if getfenv().Gladfarm == true then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Ancient-Master/tds/main/Glad.lua", true))()
 end
+end)
