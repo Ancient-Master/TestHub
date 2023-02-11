@@ -1,10 +1,6 @@
 
-pcall(function ()
-repeat task.wait(5) until game:IsLoaded() and Nexus
+repeat task.wait() until game:IsLoaded()
 
-    if not Nexus.IsConnected then Nexus.Connected:Wait() end
-    Nexus.Commands.performance()
-end)
 local TowersUHave = {}
 for i,v in next, game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Session", "Search", "Inventory.Troops") do
         table.insert(TowersUHave, i)
