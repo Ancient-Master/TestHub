@@ -1,6 +1,6 @@
 
 pcall(function ()
-repeat task.wait() until game:IsLoaded() and Nexus
+repeat task.wait(10) until game:IsLoaded() and Nexus
 
     if not Nexus.IsConnected then Nexus.Connected:Wait() end
     Nexus.Commands.performance()
